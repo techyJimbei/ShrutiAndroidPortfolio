@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-const Hero = ({ setActiveSection }) => {
+const Hero = () => {
   const sections = [
     {
       id: 'about',
@@ -52,7 +52,122 @@ const Hero = ({ setActiveSection }) => {
   ]
 
   return (
-    <div className="w-full h-screen flex items-center justify-center overflow-hidden p-4">
+    <div className="w-full min-h-screen flex items-center justify-center overflow-visible p-4 relative bg-[#FFF8F0] pb-40">
+      {/* "Yep! That's Me" Text */}
+      <motion.div
+        className="absolute top-10 left-10 z-0 pointer-events-none"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1, duration: 0.8 }}
+      >
+        <h1 className="text-[7rem] leading-none text-claret" style={{ fontFamily: '"Pinyon Script", cursive' }}>
+          Yep!
+        </h1>
+        <h2 className="text-5xl italic font-semibold text-claret mt-2 ml-4" style={{ fontFamily: '"Playfair Display", serif' }}>
+          That's Me.
+        </h2>
+      </motion.div>
+
+      {/* Retro Notepad Window */}
+      <motion.div
+        className="absolute top-64 left-12 w-64 bg-white border-8 border-pink-300 rounded-[4px] shadow-xl overflow-hidden z-10"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: [0, -6, 0] }}
+        transition={{
+          opacity: { duration: 0.8, delay: 1.2 },
+          y: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.2 }
+        }}
+      >
+        {/* Title Bar */}
+        <div className="bg-gradient-to-r from-pink-200 to-pink-100 px-2 py-1 flex items-center justify-between border-b border-pink-300">
+          <div className="flex items-center gap-2">
+            <span className="text-lg">📄</span>
+            <span className="text-xs font-medium text-pink-900/80 font-sans">Untitled - Notepad</span>
+          </div>
+          <div className="flex gap-1">
+            <div className="w-4 h-4 border border-pink-400/50 bg-white/50 rounded-[2px] flex items-center justify-center hover:bg-white transition-colors cursor-default">
+              <div className="w-2 h-[1px] bg-pink-800/50"></div>
+            </div>
+            <div className="w-4 h-4 border border-pink-400/50 bg-white/50 rounded-[2px] flex items-center justify-center hover:bg-white transition-colors cursor-default">
+              <div className="w-2 h-2 border border-pink-800/50"></div>
+            </div>
+            <div className="w-4 h-4 border border-pink-400/50 bg-red-300/50 rounded-[2px] flex items-center justify-center hover:bg-red-300 transition-colors cursor-default">
+              <span className="text-[10px] leading-none text-red-900/70 font-sans">x</span>
+            </div>
+          </div>
+        </div>
+        {/* Content */}
+        <div className="h-52 w-full relative bg-white">
+          <img src="/window_image.jpeg" alt="Window Content" className="w-full h-full object-cover" />
+        </div>
+      </motion.div>
+
+      {/* Text Overlay */}
+      <motion.div
+        className="absolute top-[29rem] left-4 z-20 pointer-events-none"
+        initial={{ opacity: 0, rotate: -5 }}
+        animate={{ opacity: 1, rotate: -2 }}
+        transition={{ delay: 1.5, duration: 0.5 }}
+      >
+        <div className="h-16 w-50 text-center bg-white px-3 py-3 rounded-xl shadow-md">
+          <p
+            className="text-xs leading-relaxed text-[#1a237e] font-serif italic drop-shadow-sm"
+            style={{ fontFamily: '"Playfair Display", serif' }}
+          >
+            this is who you're dealing with<br />
+            <span className="text-xs">(sorry not sorry)</span>
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Folder Icons Row */}
+      <motion.div
+        className="absolute top-[34rem] left-6 z-20 flex gap-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.8, duration: 0.5 }}
+      >
+        {[
+          { label: "Android development" },
+          { label: "Backend Development" },
+          { label: "Deployment" }
+        ].map((folder, index) => (
+          <div key={index} className="flex flex-col items-center gap-1 group cursor-pointer">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="w-16 h-12 relative"
+            >
+              <img src="/pink_folder_icon_colored_bg.png" alt="Folder" className="w-full h-full object-contain drop-shadow-sm rounded-xl" />
+            </motion.div>
+            <span className="text-[10px] font-medium text-gray-600 font-sans tracking-tight text-center max-w-[80px] leading-tight">
+              {folder.label}
+            </span>
+          </div>
+        ))}
+      </motion.div>
+
+      {/* IDE Window (Right Side) */}
+      <motion.div
+        className="absolute top-6 -right-8 h-[600px] w-[400px] bg-white border-8 border-pink-300 overflow-hidden z-10 rounded-xl"
+        style={{
+          boxShadow: '-15px 0 30px -10px rgba(0, 0, 0, 0.15), 0 20px 40px -12px rgba(0, 0, 0, 0.25)'
+        }}
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, delay: 0.5 }}
+      >
+        <img src="/ide_window.png" alt="IDE Screenshot" className="w-full h-full object-cover object-left" />
+      </motion.div>
+
+      {/* Ribbon Image (Left Side) */}
+      <motion.div
+        className="absolute top-[34%] left-[32%]  w-40 z-40 pointer-events-none"
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, delay: 0.8 }}
+      >
+        <img src="/ribbon_image.png" alt="Decorative Ribbon" className="w-full h-auto drop-shadow-xl" />
+      </motion.div>
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -64,21 +179,6 @@ const Hero = ({ setActiveSection }) => {
           height: 'min(680px, 90vh)'
         }}
       >
-        {/* Decorative floating elements */}
-        <motion.div
-          className="absolute -top-8 -left-8 text-4xl opacity-40 z-0"
-          animate={{ rotate: 360, y: [0, -10, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        >
-          ✨
-        </motion.div>
-        <motion.div
-          className="absolute -bottom-8 -right-8 text-4xl opacity-40 z-0"
-          animate={{ rotate: -360, y: [0, 10, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        >
-          💫
-        </motion.div>
 
         <div className="absolute inset-0">
           {sections.map((section, index) => (
@@ -99,7 +199,12 @@ const Hero = ({ setActiveSection }) => {
                 rotate: 0,
                 transition: { duration: 0.1 }
               }}
-              onClick={() => setActiveSection(section.id)}
+              onClick={() => {
+                const element = document.getElementById(section.id);
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
             >
               <div className="relative w-[150px] h-[150px]">
                 {/* Image - Full Coverage */}
@@ -108,12 +213,7 @@ const Hero = ({ setActiveSection }) => {
                   className={`w-full h-full rounded-xl bg-gradient-to-br ${section.gradient} overflow-hidden relative shadow-2xl`}
                 >
                   {/* Pattern overlay */}
-                  <div className="absolute inset-0 opacity-20"
-                    style={{
-                      backgroundImage: 'url("data:image/svg+xml,%3Csvg width="20" height="20" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 0h10v10H0V0zm10 10h10v10H10V10z" fill="%23fff" fill-opacity="0.3"/%3E%3C/svg%3E")',
-                      backgroundSize: '20px 20px'
-                    }}
-                  />
+
                   {/* Image or Emoji */}
                   {section.image ? (
                     <img
@@ -167,7 +267,7 @@ const Hero = ({ setActiveSection }) => {
           style={{
             width: '100%',
             height: '100%',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255,255,255,0.1)'
+            boxShadow: '15px 0 30px -10px rgba(0, 0, 0, 0.15), 0 25px 50px -12px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255,255,255,0.1)'
           }}
         >
           {/* Phone Screen */}
